@@ -1,0 +1,9 @@
+<input [(ngModel)]="search" type="text">
+<button (click)="getWeatherByCityName()">Submit</button>
+
+<p>{{weather.name}}</p>
+<p>{{weather.temp - 273 | number: '1.0-0'}} &deg;</p>
+<p>{{weather.description}}</p>
+
+<button (click)="setCityByLocation()">Set my city</button>
+
