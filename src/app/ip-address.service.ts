@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {IpInterface} from "./weather/ip.interface";
+import {Ip, IpInterface} from "./weather/ip.interface";
 import {Observable} from "rxjs";
 
 @Injectable()
@@ -9,9 +9,9 @@ export class IpAddressService {
   constructor(private http: HttpClient) { }
 
 
-  getIpAddress() {
+  getIpAddress(): Observable<Ip> {
     return this.http
-      .get('https://api.ipify.org/?format=json')
+      .get<Ip>('https://api.ipify.org/?format=json')
   }
 
   getGEOLocation(ip: string): Observable<IpInterface> {

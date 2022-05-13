@@ -39,4 +39,7 @@ current_time_unix: number,
 is_dst: boolean,
 dst_savings: number
 }
+export interface Ip {
+  ip: string
+}
 

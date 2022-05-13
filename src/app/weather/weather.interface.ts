@@ -47,9 +47,9 @@ export interface Sys {
 }
 
 export class Weather {
-  name: string = 'no data'
-  tamp: number = 0;
-  description: string = 'no data';
-  icon: string = '18d';
-
+  name: string = ''
+  tamp: number = 0
+  description:string = ''
+  icon: string = ''
+  main: string = ''
 }
