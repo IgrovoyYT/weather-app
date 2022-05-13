@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {WeatherService} from "../weather.service";
-import {Weather} from "./weather.interface";
-import {IpAddressService} from "../ip-address.service";
-import {Ip, IpInterface} from "./ip.interface";
+import {WeatherService} from "../services/weather.service";
+import {Weather} from "../interfaces/weather.interface";
+import {IpAddressService} from "../services/ip-address.service";
+import {Ip, IpInterface} from "../interfaces/ip.interface";
 
 @Component({
   selector: 'app-weather',
@@ -13,6 +13,7 @@ export class WeatherComponent implements OnInit {
   get localStorage() {
     return localStorage.getItem('weather')
   }
+
   options: any = {
     types: ['geocode'],
     fields: ['name']

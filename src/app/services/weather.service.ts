@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {WeatherInterface} from "./weather/weather.interface";
+import {WeatherInterface} from "../interfaces/weather.interface";
 
 @Injectable()
 export class WeatherService {

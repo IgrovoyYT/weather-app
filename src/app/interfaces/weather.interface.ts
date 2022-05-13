@@ -48,7 +48,7 @@ export interface Sys {
 
 export class Weather {
   name: string = ''
-  tamp: number = 0
+  temp: number = 0
   description:string = ''
   icon: string = ''
   main: string = ''

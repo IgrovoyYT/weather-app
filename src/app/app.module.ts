@@ -4,9 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WeatherComponent } from './weather/weather.component';
-import {WeatherService} from "./weather.service";
+import {WeatherService} from "./services/weather.service";
 import {HttpClientModule} from "@angular/common/http";
-import {IpAddressService} from "./ip-address.service";
+import {IpAddressService} from "./services/ip-address.service";
 import {FormsModule} from "@angular/forms";
 import {GooglePlaceModule} from "ngx-google-places-autocomplete";
 
