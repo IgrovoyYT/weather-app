@@ -1,9 +1,10 @@
-<input [(ngModel)]="search" type="text">
-<button (click)="getWeatherByCityName()">Submit</button>
+<input ngx-google-places-autocomplete [options]="options" #placesRef="ngx-places" (onAddressChange)="getWeatherByCityName($event)"/>
+
 
 <p>{{weather.name}}</p>
 <p>{{weather.temp - 273 | number: '1.0-0'}} &deg;</p>
 <p>{{weather.description}}</p>
+<img src="http://openweathermap.org/img/w/{{weather.icon}}.png">
 
 <button (click)="setCityByLocation()">Set my city</button>
 

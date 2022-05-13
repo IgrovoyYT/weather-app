@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {WeatherService} from "../weather.service";
-import {WeatherInterface} from "./weather.interface";
+import {Weather} from "./weather.interface";
 import {IpAddressService} from "../ip-address.service";
 import {IpInterface} from "./ip.interface";
 
@@ -10,15 +10,14 @@ import {IpInterface} from "./ip.interface";
   styleUrls: ['./weather.component.scss']
 })
 export class WeatherComponent implements OnInit {
-  search: string = ''
+  options: any = {
+    types: ['geocode'],
+    fields: ['name']
+  }
   ip: any
   // @ts-ignore
   ipData: IpInterface = {}
-  weather = {
-    name: localStorage.getItem('cityName'),
-    temp: Number(localStorage.getItem('temp')),
-    description: localStorage.getItem('description')
-  }
+  weather = JSON.parse(localStorage.getItem('weather') as any) || new Weather()
 
   constructor(
     private service: WeatherService,
@@ -27,15 +26,10 @@ export class WeatherComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(!localStorage.getItem('cityName') || !localStorage.getItem('temp') || !localStorage.getItem('description')) {
-      localStorage.setItem('cityName', 'no data')
-      localStorage.setItem('temp', '0')
-      localStorage.setItem('description', 'no data')
-      this.weather.name = localStorage.getItem('cityName')
-      this.weather.temp = Number(localStorage.getItem('temp'))
-      this.weather.description = localStorage.getItem('description')
-    }
+    this.getLocationByIp()
+  }
 
+  getLocationByIp(): void {
     this.ipService.getIpAddress().subscribe({
       next: value => this.ip = value,
       complete: () => {
@@ -46,31 +40,29 @@ export class WeatherComponent implements OnInit {
     })
   }
 
-  getWeatherByCityName(): void {
- this.service.getWeatherByCityName(this.search).subscribe({
-   next: value => {
-     this.weather.name = value.name
-     this.weather.temp = value.main.temp
-     this.weather.description = value.weather[0].description
+  getWeatherByCityName(city: any): void {
+    this.service.getWeatherByCityName(city?.name).subscribe({
+      next: value => {
+        this.weather.name = value.name || 'no data'
+        this.weather.temp = value.main.temp || 0
+        this.weather.description = value.weather[0].description || 'no data'
+        this.weather.icon = value.weather[0].icon || '18d'
 
-     localStorage.setItem('cityName', value.name)
-     // @ts-ignore
-     localStorage.setItem('temp', String(value.main.temp))
-     localStorage.setItem('description', value.weather[0].description)
-   }
- })
+        localStorage.setItem('weather', JSON.stringify(this.weather))
+      }
+    })
   }
 
   setCityByLocation(): void {
     this.service.getWeatherByLatLng(this.ipData.latitude, this.ipData.longitude).subscribe({
       next: value => {
-        this.weather.name = value.name
-        this.weather.temp = value.main.temp
-        this.weather.description = value.weather[0].description
+        this.weather.name = value.name || 'no data'
+        this.weather.temp = value.main.temp || 0
+        this.weather.description = value.weather[0].description || 'no data'
+        this.weather.icon = value.weather[0].icon || '18d'
 
-        localStorage.setItem('cityName', value.name)
-        localStorage.setItem('temp', String(value.main.temp))
-        localStorage.setItem('description', value.weather[0].description)
+        localStorage.setItem('weather', JSON.stringify(this.weather))
+
       }
     })
   }

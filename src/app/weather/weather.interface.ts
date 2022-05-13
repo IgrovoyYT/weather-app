@@ -45,3 +45,11 @@ export interface Sys {
   sunrise: number,
   sunset: number,
 }
+
+export class Weather {
+  name: string = 'no data'
+  tamp: number = 0;
+  description: string = 'no data';
+  icon: string = '18d';
+
+}

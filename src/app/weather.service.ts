@@ -19,10 +19,7 @@ export class WeatherService {
       }
     })
   }
-  getWeatherByCityName(name?: string): Observable<WeatherInterface> {
-    if (!name) {
-      name = 'Kyiv'
-    }
+  getWeatherByCityName(name: string = 'Kyiv'): Observable<WeatherInterface> {
     return this.http.get<WeatherInterface>(this.link,{
       params: {
         q: name,

@@ -8,6 +8,7 @@ import {WeatherService} from "./weather.service";
 import {HttpClientModule} from "@angular/common/http";
 import {IpAddressService} from "./ip-address.service";
 import {FormsModule} from "@angular/forms";
+import {GooglePlaceModule} from "ngx-google-places-autocomplete";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {FormsModule} from "@angular/forms";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    GooglePlaceModule
   ],
   providers: [
     WeatherService,
