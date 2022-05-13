@@ -15,9 +15,9 @@ export class WeatherComponent implements OnInit {
   // @ts-ignore
   ipData: IpInterface = {}
   weather = {
-    name: '',
-    temp: 0,
-    description: ''
+    name: localStorage.getItem('cityName'),
+    temp: Number(localStorage.getItem('temp')),
+    description: localStorage.getItem('description')
   }
 
   constructor(
@@ -27,6 +27,15 @@ export class WeatherComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(!localStorage.getItem('cityName') || !localStorage.getItem('temp') || !localStorage.getItem('description')) {
+      localStorage.setItem('cityName', 'no data')
+      localStorage.setItem('temp', '0')
+      localStorage.setItem('description', 'no data')
+      this.weather.name = localStorage.getItem('cityName')
+      this.weather.temp = Number(localStorage.getItem('temp'))
+      this.weather.description = localStorage.getItem('description')
+    }
+
     this.ipService.getIpAddress().subscribe({
       next: value => this.ip = value,
       complete: () => {
@@ -35,7 +44,6 @@ export class WeatherComponent implements OnInit {
         })
       }
     })
-    this.getWeatherByCityName()
   }
 
   getWeatherByCityName(): void {
@@ -44,6 +52,11 @@ export class WeatherComponent implements OnInit {
      this.weather.name = value.name
      this.weather.temp = value.main.temp
      this.weather.description = value.weather[0].description
+
+     localStorage.setItem('cityName', value.name)
+     // @ts-ignore
+     localStorage.setItem('temp', String(value.main.temp))
+     localStorage.setItem('description', value.weather[0].description)
    }
  })
   }
@@ -54,6 +67,10 @@ export class WeatherComponent implements OnInit {
         this.weather.name = value.name
         this.weather.temp = value.main.temp
         this.weather.description = value.weather[0].description
+
+        localStorage.setItem('cityName', value.name)
+        localStorage.setItem('temp', String(value.main.temp))
+        localStorage.setItem('description', value.weather[0].description)
       }
     })
   }
